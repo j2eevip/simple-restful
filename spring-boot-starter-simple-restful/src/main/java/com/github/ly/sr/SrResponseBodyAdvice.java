@@ -55,10 +55,8 @@ public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             return false;
         }
 
-        Set<Class<?>> excludeReturnTypes = properties.getExcludeReturnTypes();
-        if (!CollectionUtils.isEmpty(excludeReturnTypes)
-                && excludeReturnTypes.contains(method.getReturnType())) {
-            log.debug("匹配到excludeReturnTypes例外配置，跳过:returnType={},", method.getReturnType());
+        String basePackage = properties.getBasePackage();
+        if (StringUtils.hasText(basePackage) && !method.getDeclaringClass().getPackage().getName().startsWith(basePackage)) {
             return false;
         }
 
@@ -69,6 +67,13 @@ public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                 log.debug("匹配到excludePackages例外配置，跳过:packageName={},", packageName);
                 return false;
             }
+        }
+
+        Set<Class<?>> excludeReturnTypes = properties.getExcludeReturnTypes();
+        if (!CollectionUtils.isEmpty(excludeReturnTypes)
+                && excludeReturnTypes.contains(method.getReturnType())) {
+            log.debug("匹配到excludeReturnTypes例外配置，跳过:returnType={},", method.getReturnType());
+            return false;
         }
 
         Set<String> excludeUrls = properties.getExcludeUrls();

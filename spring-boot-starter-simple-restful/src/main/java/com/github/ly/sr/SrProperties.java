@@ -19,6 +19,7 @@ public class SrProperties {
     private Integer errorCode = SrConstants.DEFAULT_ERROR_CODE;
     private String errorMsg = SrConstants.DEFAULT_ERROR_MSG;
     private Integer validErrorCode = SrConstants.DEFAULT_VALIDATION_ERROR_CODE;
+    private String basePackage;
     private Set<String> excludePackages;
     private Set<String> excludeUrls;
     private Set<Class<?>> excludeReturnTypes;

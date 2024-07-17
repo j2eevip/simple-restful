@@ -40,7 +40,7 @@
 <!--		</encoder>-->
 <!--	</appender>-->
 
-	<root level="DEBUG">
+	<root level="INFO">
 		<appender-ref ref="CONSOLE" />
 	</root>
 <!--	<logger name="cn.obox.lcgp" level="DEBUG" additivity="false">-->

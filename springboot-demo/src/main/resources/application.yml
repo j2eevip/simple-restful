@@ -22,6 +22,4 @@ springdoc:
       packages-to-scan: com.github.ly.demo.controller
 
 simple-restful:
-  exclude-packages:
-    - org.springdoc.**
-    - springfox.**
+  base-package: com.github.ly.demo
