@@ -1,9 +1,10 @@
-package com.github.ly.sr.annotation;
+package com.github.ly.sr;
 
 import java.lang.annotation.*;
 
+@Inherited
+@Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-@Inherited
 public @interface IgnoreAdvice {
 }

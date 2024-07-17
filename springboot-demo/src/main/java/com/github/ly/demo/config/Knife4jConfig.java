@@ -9,8 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Slf4j
-@Configuration
-public class Knife4jConfig  {
+@Configuration(proxyBeanMethods = false)
+public class Knife4jConfig {
+
     @Bean
     public OpenAPI customOpenAPI() {
         Info contact = new Info().title("OBOX RESTful APIs")

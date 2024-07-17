@@ -10,7 +10,7 @@ server:
 
 springdoc:
   swagger-ui:
-    path: /swagger-ui.html
+    path: /index.html
     tags-sorter: alpha
     operations-sorter: alpha
   api-docs:
@@ -20,3 +20,8 @@ springdoc:
     - group: 'default'
       paths-to-match: '/**'
       packages-to-scan: com.github.ly.demo.controller
+
+simple-restful:
+  exclude-packages:
+    - org.springdoc.**
+    - springfox.**

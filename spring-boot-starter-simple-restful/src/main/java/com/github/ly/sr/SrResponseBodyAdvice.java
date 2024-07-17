@@ -1,7 +1,6 @@
 package com.github.ly.sr;
 
 import com.alibaba.fastjson.JSON;
-import com.github.ly.sr.annotation.IgnoreAdvice;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -42,16 +41,16 @@ public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
         if (Objects.isNull(method)
                 || method.isAnnotationPresent(IgnoreAdvice.class)
-                || method.getReturnType().equals(SrResponseBody.class)
-                || AbstractJsonHttpMessageConverter.class.isAssignableFrom(clazz)
-                || AbstractJackson2HttpMessageConverter.class.isAssignableFrom(clazz)) {
+                || method.getReturnType().equals(SrResponseBody.class)) {
             log.debug("Method为空、返回值为void和Response类型、非JSON或者使用注解 IgnoreAdvice,跳过方法。");
             return false;
         }
 
         String customJsonHttpMessageConvertName;
         if (StringUtils.hasText(customJsonHttpMessageConvertName = properties.getCustomJsonMessageConverterName())
-                && !clazz.getName().equals(customJsonHttpMessageConvertName)) {
+                && (!clazz.getName().equals(customJsonHttpMessageConvertName)
+                || AbstractJsonHttpMessageConverter.class.isAssignableFrom(clazz)
+                || AbstractJackson2HttpMessageConverter.class.isAssignableFrom(clazz))) {
             log.debug("自定义的JsonConvert和方法使用的convert不同，跳过方法");
             return false;
         }

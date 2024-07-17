@@ -1,6 +1,5 @@
-package com.github.ly.sr.annotation;
+package com.github.ly.sr;
 
-import com.github.ly.sr.SrAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
