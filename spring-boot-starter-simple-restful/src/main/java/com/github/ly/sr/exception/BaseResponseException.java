@@ -1,4 +1,4 @@
-package com.github.ly.sr;
+package com.github.ly.sr.exception;
 
 public abstract class BaseResponseException extends RuntimeException {
     public BaseResponseException(String message) {

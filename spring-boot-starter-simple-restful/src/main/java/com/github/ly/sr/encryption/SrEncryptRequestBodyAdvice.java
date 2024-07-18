@@ -9,9 +9,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAd
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
 import java.lang.reflect.Type;
-import java.util.Objects;
 
 public class SrEncryptRequestBodyAdvice extends RequestBodyAdviceAdapter {
     private final boolean isGlobalEncryption;
@@ -22,10 +20,8 @@ public class SrEncryptRequestBodyAdvice extends RequestBodyAdviceAdapter {
 
     @Override
     public boolean supports(MethodParameter methodParameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
-        Method method;
         return this.isGlobalEncryption ||
-                (Objects.nonNull(method = methodParameter.getMethod())
-                        && method.isAnnotationPresent(DecryptRequestBody.class)
+                (methodParameter.hasParameterAnnotation(DecryptRequestBody.class)
                         && targetType.getClass().isAnnotationPresent(RestController.class));
     }
 

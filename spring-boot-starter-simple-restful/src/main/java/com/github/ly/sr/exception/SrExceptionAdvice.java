@@ -1,5 +1,7 @@
-package com.github.ly.sr;
+package com.github.ly.sr.exception;
 
+import com.github.ly.sr.SrProperties;
+import com.github.ly.sr.response.SrResponseBody;
 import jakarta.annotation.Resource;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;

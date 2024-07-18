@@ -1,15 +1,14 @@
 package com.github.ly.sr.exception;
 
 
-import com.github.ly.sr.SrConstants;
-
 import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface ResponseException {
-    int code() default SrConstants.DEFAULT_ERROR_CODE;
-    String msg() default SrConstants.DEFAULT_ERROR_MSG;
+    int code() default 500;
+
+    String msg() default "request fail.";
     boolean isSpEl() default false;
 }

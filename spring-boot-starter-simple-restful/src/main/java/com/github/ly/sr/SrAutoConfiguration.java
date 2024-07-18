@@ -1,5 +1,7 @@
 package com.github.ly.sr;
 
+import com.github.ly.sr.exception.SrExceptionAdvice;
+import com.github.ly.sr.response.SrResponseBodyAdvice;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -17,8 +19,8 @@ public class SrAutoConfiguration implements InitializingBean {
     }
 
     @Bean
-    public SrResponseBodyAdvice responseBodyAdvice() {
-        return new SrResponseBodyAdvice();
+    public SrResponseBodyAdvice responseBodyAdvice(SrProperties properties) {
+        return new SrResponseBodyAdvice(properties);
     }
 
     @Override
