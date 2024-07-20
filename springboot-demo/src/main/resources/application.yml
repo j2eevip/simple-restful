@@ -23,3 +23,4 @@ springdoc:
 
 simple-restful:
   base-package: com.github.ly.demo
+  private-key: "$#ED25FCADD"

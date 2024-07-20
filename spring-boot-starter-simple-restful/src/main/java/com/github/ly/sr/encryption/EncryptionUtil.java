@@ -80,18 +80,16 @@ public class EncryptionUtil {
     }
 
     public static String decodeBase64(String plainText, String privateKey) {
-        return decodeBase64(plainText.getBytes(StandardCharsets.UTF_8), privateKey.getBytes(StandardCharsets.UTF_8));
+        return decodeBase64(plainText.getBytes(StandardCharsets.UTF_8), privateKey);
     }
 
-    public static String decodeBase64(byte[] dataBytes, byte[] keyBytes) {
-        if (Objects.isNull(dataBytes) || Objects.isNull(keyBytes) || dataBytes.length == 0 || keyBytes.length == 0) {
+    public static String decodeBase64(byte[] dataBytes, String keyBytes) {
+        if (Objects.isNull(dataBytes) || Objects.isNull(keyBytes) || dataBytes.length == 0 || keyBytes.isEmpty()) {
             log.error("base64 decode was fail, because argument is null or empty.");
             return EMPTY_STR;
         }
-        byte[] decodeBytes = new byte[dataBytes.length - keyBytes.length];
-        System.arraycopy(dataBytes, keyBytes.length, decodeBytes, keyBytes.length + 1, dataBytes.length);
 
-        return new String(decoder.decode(decodeBytes), StandardCharsets.UTF_8);
+        return new String(decoder.decode(dataBytes), StandardCharsets.UTF_8).substring(keyBytes.length());
     }
 
     public static String rsaDecryptByPrivate(String content, PrivateKey privateKey) {

@@ -1,6 +1,7 @@
 package com.github.ly.sr;
 
 import com.github.ly.sr.encryption.global.SrEncryptionFilter;
+import com.github.ly.sr.encryption.method.DecryptRequestBody;
 import com.github.ly.sr.exception.SrExceptionAdvice;
 import com.github.ly.sr.response.SrResponseBodyAdvice;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,12 @@ public class SrAutoConfiguration implements InitializingBean {
     @Bean
     public SrResponseBodyAdvice responseBodyAdvice(SrProperties properties) {
         return new SrResponseBodyAdvice(properties);
+    }
+
+    @Bean
+    @ConditionalOnProperty(prefix = "simple-restful", name = "requestBodyEncryption", havingValue = "true")
+    public DecryptRequestBody decryptRequestBody(SrProperties properties) {
+        return new DecryptRequestBody(properties.getPrivateKey());
     }
 
     @Bean

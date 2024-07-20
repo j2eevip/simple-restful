@@ -23,6 +23,7 @@ public class SrProperties {
     private boolean enableI18n = false;
     private Locale i18nLocale = LocaleContextHolder.getLocale();
 
+    private boolean requestBodyEncryption = false;
     private boolean globalEncryption = false;
     private Set<String> skipPaths;
     private EncryptMode encryptMode;

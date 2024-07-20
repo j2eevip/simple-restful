@@ -9,5 +9,5 @@ public final class SrConstant {
     public static final String DEFAULT_FAIL_MSG = "request was fail.";
 
     public static final String EMPTY_JSON_BODY = "{}";
-    public static final String DECRYPT_PARAM_NAME = "decrypt_param";
+    public static final String DECRYPT_PARAM_NAME = "decrypt";
 }
