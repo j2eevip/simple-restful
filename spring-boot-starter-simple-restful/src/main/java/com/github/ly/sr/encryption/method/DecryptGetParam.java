@@ -25,10 +25,14 @@ public class DecryptGetParam implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        try {
-            if ("GET".equals(request.getMethod()) && (handler instanceof HandlerMethod method) && (method.hasMethodAnnotation(Decrypt.class))) {
-                String decryptBody = request.getParameter(SrConstant.DECRYPT_PARAM_NAME);
-                Decrypt decrypt = method.getMethodAnnotation(Decrypt.class);
+        String decryptBody;
+
+        if ("GET".equals(request.getMethod())
+                && (handler instanceof HandlerMethod method)
+                && method.hasMethodAnnotation(Decrypt.class)
+                && StringUtils.hasText(decryptBody = request.getParameter(SrConstant.DECRYPT_PARAM_NAME))) {
+            Decrypt decrypt = method.getMethodAnnotation(Decrypt.class);
+            try {
                 String requestBody = Objects.nonNull(decrypt) ? decrypt.mode().getDecryptStr(decryptBody, privateKey) : "";
                 if (StringUtils.hasText(requestBody) && !SrConstant.EMPTY_JSON_BODY.equals(requestBody)) {
                     Map<String, Object> requestMap = JSONObject.parseObject(requestBody, new TypeReference<>() {
@@ -37,10 +41,10 @@ public class DecryptGetParam implements HandlerInterceptor {
                         request.setAttribute(entry.getKey(), entry.getValue());
                     }
                 }
+            } catch (Exception e) {
+                log.error("异常地址：{}", request.getServletPath(), e);
+                ExceptionUtil.raiseException(SrConstant.DEFAULT_FAIL_CODE, "Decrypt failed", e);
             }
-        } catch (Exception e) {
-            log.error("异常地址：{}", request.getServletPath(), e);
-            ExceptionUtil.raiseException(SrConstant.DEFAULT_FAIL_CODE, "Decrypt failed", e);
         }
         return true;
     }

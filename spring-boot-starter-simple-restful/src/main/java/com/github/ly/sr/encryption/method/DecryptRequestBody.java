@@ -1,6 +1,6 @@
 package com.github.ly.sr.encryption.method;
 
-import lombok.RequiredArgsConstructor;
+import com.github.ly.sr.SrProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.Order;
@@ -17,13 +17,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 @Slf4j
-@Order(2)
+@Order(0)
 @RestControllerAdvice
-@RequiredArgsConstructor
 public class DecryptRequestBody extends RequestBodyAdviceAdapter {
     private final String privateKey;
+
+    public DecryptRequestBody(final SrProperties properties) {
+        this.privateKey = properties.getPrivateKey();
+    }
 
     @Override
     public boolean supports(MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
@@ -33,7 +37,7 @@ public class DecryptRequestBody extends RequestBodyAdviceAdapter {
     @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
         Decrypt decrypt = parameter.getParameterAnnotation(Decrypt.class);
-        if (decrypt != null) {
+        if (Objects.isNull(decrypt)) {
             log.error("Decrypt method annotated with @Decrypt is not found.");
             return inputMessage;
         }

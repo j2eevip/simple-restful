@@ -72,11 +72,12 @@ public class EncryptionUtil {
             log.error("base64 encode was fail, because argument is null or empty.");
             return EMPTY_STR;
         }
-        byte[] encodeBytes = new byte[dataBytes.length + keyBytes.length];
-        System.arraycopy(keyBytes, 0, encodeBytes, 0, keyBytes.length);
-        System.arraycopy(dataBytes, 0, encodeBytes, keyBytes.length + 1, dataBytes.length);
+        byte[] encode = encoder.encode(dataBytes);
+        byte[] resultBytes = new byte[keyBytes.length + encode.length];
+        System.arraycopy(keyBytes, 0, resultBytes, 0, keyBytes.length);
+        System.arraycopy(encode, 0, resultBytes, keyBytes.length + 1, dataBytes.length);
 
-        return new String(encoder.encode(encodeBytes), StandardCharsets.UTF_8);
+        return new String(resultBytes, StandardCharsets.UTF_8);
     }
 
     public static String decodeBase64(String plainText, String privateKey) {
@@ -88,8 +89,10 @@ public class EncryptionUtil {
             log.error("base64 decode was fail, because argument is null or empty.");
             return EMPTY_STR;
         }
+        byte[] decodeBytes = new byte[dataBytes.length - keyBytes.length()];
+        System.arraycopy(dataBytes, keyBytes.length(), decodeBytes, 0, dataBytes.length - keyBytes.length());
 
-        return new String(decoder.decode(dataBytes), StandardCharsets.UTF_8).substring(keyBytes.length());
+        return new String(decoder.decode(decodeBytes), StandardCharsets.UTF_8);
     }
 
     public static String rsaDecryptByPrivate(String content, PrivateKey privateKey) {

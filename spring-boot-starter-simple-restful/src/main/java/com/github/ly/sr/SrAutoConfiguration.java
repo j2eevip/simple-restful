@@ -28,13 +28,13 @@ public class SrAutoConfiguration implements InitializingBean {
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "simple-restful", name = "requestBodyEncryption", havingValue = "true")
+    @ConditionalOnProperty(prefix = "simple-restful", name = "request-body-encryption", havingValue = "true")
     public DecryptRequestBody decryptRequestBody(SrProperties properties) {
-        return new DecryptRequestBody(properties.getPrivateKey());
+        return new DecryptRequestBody(properties);
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "simple-restful", name = "globalEncryption", havingValue = "true")
+    @ConditionalOnProperty(prefix = "simple-restful", name = "global-encryption", havingValue = "true")
     public SrEncryptionFilter encryptionFilter(SrProperties properties) {
         return new SrEncryptionFilter(properties.getSkipPaths(), properties.getEncryptMode(), properties.getPrivateKey());
     }

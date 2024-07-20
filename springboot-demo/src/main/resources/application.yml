@@ -23,4 +23,5 @@ springdoc:
 
 simple-restful:
   base-package: com.github.ly.demo
-  private-key: "$#ED25FCADD"
+  private-key: "VybmFtZSI6"
+  request-body-encryption: true
