@@ -28,7 +28,7 @@ import java.util.Set;
 
 @Slf4j
 @RestControllerAdvice
-@Order(value = Integer.MAX_VALUE - 3)
+@Order(value = Integer.MAX_VALUE - 1)
 public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 

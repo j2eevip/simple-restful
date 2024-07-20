@@ -1,11 +1,11 @@
 package com.github.ly.demo.controller;
 
 import com.github.ly.demo.model.User;
+import com.github.ly.demo.model.vo.ReqUser;
+import com.github.ly.sr.encryption.method.Decrypt;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("demo")
@@ -22,5 +22,19 @@ public class DemoController {
     @Operation(summary = "privacy")
     public User privacy() {
         return User.of("Halo.Chen");
+    }
+
+    @PostMapping("decrypt/post")
+    @Operation(summary = "post-decrypt")
+    @Decrypt
+    public String decryptPost(@RequestBody ReqUser user) {
+        return "hello " + user.getUsername();
+    }
+
+    @GetMapping("decrypt/get")
+    @Operation(summary = "get-decrypt")
+    @Decrypt
+    public String decryptGet(@RequestAttribute("test") String test) {
+        return "hello " + test;
     }
 }

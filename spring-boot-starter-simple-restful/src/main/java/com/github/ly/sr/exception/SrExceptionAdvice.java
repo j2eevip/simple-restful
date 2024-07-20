@@ -23,7 +23,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Order(Integer.MAX_VALUE - 4)
+@Order(Integer.MAX_VALUE - 1)
 @RestControllerAdvice
 public class SrExceptionAdvice {
     private static final String[] EMPTY_ARGS = new String[0];

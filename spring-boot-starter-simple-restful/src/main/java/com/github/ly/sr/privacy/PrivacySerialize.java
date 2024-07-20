@@ -77,13 +77,15 @@ public class PrivacySerialize extends JsonSerializer<String> implements Contextu
 
     @Override
     public JsonSerializer<?> createContextual(SerializerProvider serializerProvider, BeanProperty beanProperty) throws JsonMappingException {
-        if (beanProperty != null) {
-            PrivacyColumn privacyColumn;
-            if (Objects.isNull(privacyColumn = beanProperty.getAnnotation(PrivacyColumn.class))) {
-                privacyColumn = beanProperty.getContextAnnotation(PrivacyColumn.class);
-            }
-            if (Objects.nonNull(privacyColumn)) {
-                return new PrivacySerialize(privacyColumn);
+        if (Objects.nonNull(beanProperty)) {
+            if (Objects.equals(String.class, beanProperty.getType().getRawClass())) {
+                PrivacyColumn privacyColumn;
+                if (Objects.isNull(privacyColumn = beanProperty.getAnnotation(PrivacyColumn.class))) {
+                    privacyColumn = beanProperty.getContextAnnotation(PrivacyColumn.class);
+                }
+                if (Objects.nonNull(privacyColumn)) {
+                    return new PrivacySerialize(privacyColumn);
+                }
             }
             return serializerProvider.findValueSerializer(beanProperty.getType(), beanProperty);
         }
