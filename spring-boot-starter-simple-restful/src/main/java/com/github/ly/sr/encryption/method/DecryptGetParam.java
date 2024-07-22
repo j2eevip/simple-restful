@@ -1,7 +1,7 @@
 package com.github.ly.sr.encryption.method;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.TypeReference;
 import com.github.ly.sr.SrConstant;
 import com.github.ly.sr.exception.ExceptionUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,8 +35,7 @@ public class DecryptGetParam implements HandlerInterceptor {
             try {
                 String requestBody = Objects.nonNull(decrypt) ? decrypt.mode().getDecryptStr(decryptBody, privateKey) : "";
                 if (StringUtils.hasText(requestBody) && !SrConstant.EMPTY_JSON_BODY.equals(requestBody)) {
-                    Map<String, Object> requestMap = JSONObject.parseObject(requestBody, new TypeReference<>() {
-                    });
+                    JSONObject requestMap = JSON.parseObject(requestBody);
                     for (Map.Entry<String, Object> entry : requestMap.entrySet()) {
                         request.setAttribute(entry.getKey(), entry.getValue());
                     }

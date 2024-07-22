@@ -1,7 +1,7 @@
 package com.github.ly.sr.encryption.global;
 
+import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.alibaba.fastjson2.TypeReference;
 import com.github.ly.sr.SrConstant;
 import com.github.ly.sr.encryption.method.EncryptMode;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,8 +18,7 @@ public class SrParameterRequestWrapper extends HttpServletRequestWrapper {
         //解析
         String decryptParam = request.getParameter(SrConstant.DECRYPT_PARAM_NAME);
         String requestBody = encryptMode.getDecryptStr(decryptParam, privateKey);
-        Map<String, Object> requestMap = JSONObject.parseObject(requestBody, new TypeReference<>() {
-        });
+        JSONObject requestMap = JSON.parseObject(requestBody);
         for (Map.Entry<String, Object> entry : requestMap.entrySet()) {
             request.setAttribute(entry.getKey(), entry.getValue());
         }
