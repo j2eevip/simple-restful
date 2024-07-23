@@ -8,13 +8,14 @@ async function config() {
         lang: "en-US",
         title: "Clark Cui",
         description: "Home of Clark Cui",
+        base: "/simple-restful",
         head: [
             [
                 "link",
                 {
                     rel: "icon",
                     type: "image/svg",
-                    href: "/horse.svg",
+                    href: "/simple-restful/horse.svg",
                 },
             ],
             [
@@ -43,8 +44,8 @@ async function config() {
         lastUpdated: false,
         themeConfig: {
             // repo: "clark-cui/homeSite",
-            logo: "/horse.svg",
-            avator: "/avator.png",
+            logo: "/simple-restful/horse.svg",
+            avator: "/simple-restful/avator.png",
             search: {
                 provider: "local",
             },
@@ -99,11 +100,6 @@ async function config() {
                 md.use(mathjax3);
             },
         },
-        // vite: {
-        //   ssr: {
-        //     noExternal: ["vitepress-plugin-twoslash"],
-        //   },
-        // },
     };
 }
 
