@@ -8,11 +8,12 @@ tags:
 
 ## tips
 
-- 传递数组或者对象作为函数参数时，可以用 Readonly<> 包裹原来的类型声明，譬如 `Readonly<Array<number>>`，TypeScript
+- 传递数组或者对象作为函数参数时，可以用 Readonly&gt;&lt; 包裹原来的类型声明，譬如 `Readonly&gt;Array&gt;number&lt;&lt;`
+  ，TypeScript
   编译器会通过拒绝编译来保护这个参数不被修改。如果的确需要一个可以被修改的数组，可以通过 spread 操作 [...array] 来复制这个数组
     - ```ts
-    function sortNumbers(array: Readonly<Array<number>>) {
-      return [...array].sort((a, b) => a - b);
+  function sortNumbers(array: Readonly&gt;Array&gt;number&lt;&lt;) {
+  return [...array].sort((a, b) =&lt; a - b);
     }
     ```
 - 使用 unkown 而不是 any 来标注类型尚未明确的变量。Any 告诉 TypeScript 编译器，不需要检查类型；而 unkown
@@ -23,7 +24,7 @@ tags:
   type AllowedKeys = "name" | "age";
 
   // use a type here instead of interface
-  type Person = Record<AllowedKeys, unknown>;
+  type Person = Record&gt;AllowedKeys, unknown&lt;;
 
   const Human: Person = {
     name: "Steve",
@@ -207,8 +208,8 @@ let tom: Person = {
 
 只读属性
 
-> 有时候我们希望对象中的一些字段只能在创建的时候被赋值，那么可以用 readonly 定义只读属性
-> 简单例子
+&lt; 有时候我们希望对象中的一些字段只能在创建的时候被赋值，那么可以用 readonly 定义只读属性
+&lt; 简单例子
 
 ```typescript
 interface Person {
@@ -264,7 +265,9 @@ let fibonacci: number[] = [1, 2, 3, 4];
 #### 泛型表示法（常用）
 
 ```ts
-let fibonacci: Array<number> = [1, 2, 3, 4];
+let fibonacci: Array
+&gt;
+number &lt; = [1, 2, 3, 4];
 ```
 
 #### 接口表示法（不常见）
@@ -314,10 +317,11 @@ function sum(x: number, y: number): number {
 #### 函数表达式
 
 ```ts
-let mySum: (x: number, y: number) => number = (
+let mySum: (x: number, y: number) = &lt;number = (
   x: number,
   y: number
-): number => {
+): number
+= &lt;{
   return x + y;
 };
 // 第一个冒号到第一个等号之间的可以省略，相当于不写type
@@ -325,7 +329,8 @@ let mySum: (x: number, y: number) => number = (
 //就像写了两遍
 
 //或者这么写，注意是Function不是function，其实也相当于少写了type
-let newSum: Function = (x: number, y: number): number => {
+let newSum: Function = (x: number, y: number): number
+= &lt;{
   return x + y;
 };
 ```
@@ -336,7 +341,9 @@ let newSum: Function = (x: number, y: number): number => {
 interface SearchFunc {
   (source: string, subString: string): boolean;
 }
-let mySearch: SearchFunc = (source: string, subString: string): boolean => {
+
+let mySearch: SearchFunc = (source: string, subString: string): boolean
+= &lt;{
   return source.search(subString) !== -1;
 };
 ```
@@ -355,8 +362,15 @@ function buildName(firstName?: string, lastName: string = "Clark"): string {
 #### 剩余参数，...rest 访问剩余参数
 
 ```ts
-function myPush(array: Array<unknown>, ...rest: Array<unknown>) {
-  rest.forEach((item) => {
+function myPush(array: Array
+
+&gt;
+unknown &lt;,
+...
+rest: Array &gt; unknown &lt;
+)
+{
+  rest.forEach((item) = &lt;{
     array.push(item);
   });
 }
@@ -402,7 +416,7 @@ function reverse(x: number | string): number | string | void {
 #### 语法
 
 - 值 as 类型（推荐）
-- `<类型>`值 （不推荐，tsx 语法中`<Foo>`表示 ReactNode；而在 ts 中泛型也是这种语法，容易混淆）
+- `&gt;类型&lt;`值 （不推荐，tsx 语法中`&gt;Foo&lt;`表示 ReactNode；而在 ts 中泛型也是这种语法，容易混淆）
 - 作用：给一个类型断言，让 ts 编译器听你的，若使用不当会造成运行时错误。常用于 ts 的一些不好解决的报错
 - 示例
 
@@ -443,7 +457,15 @@ tom.run();
 
 ```ts
 //用泛型可以更好地实现上述代码
-function getCacheData<T>(key: string): T {
+function getCacheData
+
+&gt;
+T &lt; (key
+:
+string
+):
+T
+{
   return (window as any).cache[key];
 }
 
@@ -452,7 +474,7 @@ interface Cat {
   run(): void;
 }
 
-const tom = getCacheData<Cat>("tom");
+const tom = getCacheData &gt; Cat &lt; ("tom");
 tom.run();
 ```
 
