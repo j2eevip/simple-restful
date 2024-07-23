@@ -1,10 +1,14 @@
 <template>
   <div class="content">
-    <img :src="theme.avator" width="135" height="135" class="avator"/>
+    <img :src="withBase(theme.avator)" width="100" height="100" class="avator"/>
+    <FireWorksAnimation/>
+    <ShareCard/>
   </div>
 </template>
 <script lang="ts" setup>
-import {useData} from "vitepress";
+import {useData, withBase} from "vitepress";
+import ShareCard from "./ShareCard.vue";
+import FireWorksAnimation from "./FireWorksAnimation.vue";
 
 const {theme} = useData();
 </script>
@@ -13,12 +17,12 @@ const {theme} = useData();
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 300px;
+  height: 100px;
 }
 
 .avator {
   border-radius: 50%;
-  border: 5px solid var(--vp-avator-border);
+  border: 2px solid var(--vp-avator-border);
 }
 
 @keyframes avator-transform {

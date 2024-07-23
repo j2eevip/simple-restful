@@ -15,7 +15,7 @@ async function config() {
                 {
                     rel: "icon",
                     type: "image/svg",
-                    href: "/simple-restful/horse.svg",
+                    href: "horse.svg",
                 },
             ],
             [
@@ -40,17 +40,14 @@ async function config() {
                 },
             ],
         ],
-        // cleanUrls: "with-subfolders",
         lastUpdated: false,
         themeConfig: {
-            // repo: "clark-cui/homeSite",
-            logo: "/simple-restful/horse.svg",
-            avator: "/simple-restful/avator.png",
+            logo: "horse.svg",
+            avator: "avator.png",
             search: {
                 provider: "local",
             },
             docsDir: "/",
-            // docsBranch: "master",
             posts: await getPosts(),
             pageSize: 5,
             postLength: await getPostLength(),

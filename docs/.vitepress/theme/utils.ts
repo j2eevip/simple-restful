@@ -8,6 +8,11 @@ type Post = {
     regularPath: string;
 };
 
+type Head = {
+    title: string,
+    link: string,
+    level: number
+}
 export function initTags(post: Post[]) {
     const data: any = {};
     for (let i = 0; i < post.length; i++) {
@@ -47,24 +52,25 @@ export function useYearSort(post: Post[]) {
     return data;
 }
 
-export function getHeaders(range: any) {
-    const headers = [...document.querySelectorAll(".VPDoc h2,h3,h4,h5,h6")]
-        .filter((el) => el.id && el.hasChildNodes())
-        .map((el) => {
-            const level = Number(el.tagName[1]);
-            return {
+export function getHeaders(range: string = ".VPDoc h2,h3,h4,h5,h6"): Head[] {
+    const headers: NodeListOf<Element> = document.querySelectorAll(range);
+    const result: Head[] = []
+    headers.forEach((el: Element) => {
+        if (!!el.id && el.hasChildNodes()) {
+            const level: number = Number(el.tagName[1]);
+            result.push({
                 title: serializeHeader(el),
                 link: "#" + el.id,
                 level,
-            };
-        });
-
-    // return resolveHeaders(headers, range);
-    return headers;
+            })
+        }
+    })
+    return result;
 }
 
 function serializeHeader(h: Element): string {
     let ret = "";
+    // @ts-ignore
     for (const node of h.childNodes) {
         if (node.nodeType === 1) {
             if (

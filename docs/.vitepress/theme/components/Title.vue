@@ -3,8 +3,8 @@
   <div class="date">🕒 Published at: {{ publishDate }}</div>
 </template>
 <script lang="ts" setup>
-import {onContentUpdated, useData} from "vitepress";
-import {ref} from "vue";
+import {onContentUpdated, PageData, useData} from "vitepress";
+import {Ref, ref} from "vue";
 
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -12,12 +12,12 @@ import relativeTime from "dayjs/plugin/relativeTime";
 type pageData = {
   description: string;
   title: string;
-  frontmatter: object;
+  frontMatter: object;
   headers: object[];
   lastUpdated: number;
   relativePath: string;
 };
-const pageData: pageData = useData().page;
+const pageData: Ref<PageData> = useData().page;
 const publishDate = ref("");
 dayjs.extend(relativeTime);
 onContentUpdated(() => {
