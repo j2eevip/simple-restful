@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://clark-cui.top/</id>
     <title>Clark Cui</title>
-    <updated>2024-07-23T08:55:43.513Z</updated>
+    <updated>2024-07-23T09:08:45.197Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <author>
         <name>Clark Cui</name>
@@ -2410,7 +2410,8 @@ windows 的开发环境...</p>
         <content type="html"><![CDATA[<h2>tips</h2>
 <ul>
 <li>
-<p>传递数组或者对象作为函数参数时，可以用 Readonly&gt;&lt; 包裹原来的类型声明，譬如 <code>Readonly&amp;gt;Array&amp;gt;number&amp;lt;&amp;lt;</code>，TypeScript<br>
+<p>传递数组或者对象作为函数参数时，可以用 Readonly&gt;&lt; 包裹原来的类型声明，譬如 <code>Readonly&amp;gt;Array&amp;gt;number&amp;lt;&amp;lt;</code><br>
+，TypeScript<br>
 编译器会通过拒绝编译来保护这个参数不被修改。如果的确需要一个可以被修改的数组，可以通过 spread 操作 [...array] 来复制这个数组</p>
 <ul>
 <li>
@@ -2613,7 +2614,9 @@ tom.id = 89757;
 <pre><code class="language-ts">let fibonacci: number[] = [1, 2, 3, 4];
 </code></pre>
 <h4>泛型表示法（常用）</h4>
-<pre><code class="language-ts">let fibonacci: Array&amp;gt;number&amp;lt; = [1, 2, 3, 4];
+<pre><code class="language-ts">let fibonacci: Array
+&amp;gt;
+number &amp;lt; = [1, 2, 3, 4];
 </code></pre>
 <h4>接口表示法（不常见）</h4>
 <pre><code class="language-ts">interface NumberArray {
@@ -2649,10 +2652,11 @@ interface IArguments {
 }
 </code></pre>
 <h4>函数表达式</h4>
-<pre><code class="language-ts">let mySum: (x: number, y: number) =&amp;lt; number = (
+<pre><code class="language-ts">let mySum: (x: number, y: number) = &amp;lt;number = (
   x: number,
   y: number
-): number =&amp;lt; {
+): number
+= &amp;lt;{
   return x + y;
 };
 // 第一个冒号到第一个等号之间的可以省略，相当于不写type
@@ -2660,7 +2664,8 @@ interface IArguments {
 //就像写了两遍
 
 //或者这么写，注意是Function不是function，其实也相当于少写了type
-let newSum: Function = (x: number, y: number): number =&amp;lt; {
+let newSum: Function = (x: number, y: number): number
+= &amp;lt;{
   return x + y;
 };
 </code></pre>
@@ -2668,7 +2673,9 @@ let newSum: Function = (x: number, y: number): number =&amp;lt; {
 <pre><code class="language-ts">interface SearchFunc {
   (source: string, subString: string): boolean;
 }
-let mySearch: SearchFunc = (source: string, subString: string): boolean =&amp;lt; {
+
+let mySearch: SearchFunc = (source: string, subString: string): boolean
+= &amp;lt;{
   return source.search(subString) !== -1;
 };
 </code></pre>
@@ -2681,8 +2688,15 @@ let mySearch: SearchFunc = (source: string, subString: string): boolean =&amp;lt
 }
 </code></pre>
 <h4>剩余参数，...rest 访问剩余参数</h4>
-<pre><code class="language-ts">function myPush(array: Array&amp;gt;unknown&amp;lt;, ...rest: Array&amp;gt;unknown&amp;lt;) {
-  rest.forEach((item) =&amp;lt; {
+<pre><code class="language-ts">function myPush(array: Array
+
+&amp;gt;
+unknown &amp;lt;,
+...
+rest: Array &amp;gt; unknown &amp;lt;
+)
+{
+  rest.forEach((item) = &amp;lt;{
     array.push(item);
   });
 }
@@ -2753,7 +2767,15 @@ const tom = getCacheData(&quot;tom&quot;) as Cat;
 tom.run();
 </code></pre>
 <pre><code class="language-ts">//用泛型可以更好地实现上述代码
-function getCacheData&amp;gt;T&amp;lt;(key: string): T {
+function getCacheData
+
+&amp;gt;
+T &amp;lt; (key
+:
+string
+):
+T
+{
   return (window as any).cache[key];
 }
 
@@ -2762,7 +2784,7 @@ interface Cat {
   run(): void;
 }
 
-const tom = getCacheData&amp;gt;Cat&amp;lt;(&quot;tom&quot;);
+const tom = getCacheData &amp;gt; Cat &amp;lt; (&quot;tom&quot;);
 tom.run();
 </code></pre>
 <h3>声明文件</h3>
