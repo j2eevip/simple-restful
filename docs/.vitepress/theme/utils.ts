@@ -11,7 +11,8 @@ type Post = {
 type Head = {
     title: string,
     link: string,
-    level: number
+    level: number,
+    children: Head[]
 }
 export function initTags(post: Post[]) {
     const data: any = {};
@@ -62,6 +63,7 @@ export function getHeaders(range: string = ".VPDoc h2,h3,h4,h5,h6"): Head[] {
                 title: serializeHeader(el),
                 link: "#" + el.id,
                 level,
+                children: []
             })
         }
     })
@@ -70,31 +72,24 @@ export function getHeaders(range: string = ".VPDoc h2,h3,h4,h5,h6"): Head[] {
 
 function serializeHeader(h: Element): string {
     let ret = "";
-    // @ts-ignore
-    for (const node of h.childNodes) {
+    h.childNodes.forEach(node => {
         if (node.nodeType === 1) {
-            if (
-                (node as Element).classList.contains("VPBadge") ||
-                (node as Element).classList.contains("header-anchor")
-            ) {
-                continue;
+            if (!(node as Element).classList.contains("VPBadge") &&
+                !(node as Element).classList.contains("header-anchor")) {
+                ret += node.textContent;
             }
-            ret += node.textContent;
         } else if (node.nodeType === 3) {
             ret += node.textContent;
         }
-    }
+    })
     return ret.trim();
 }
 
-export function resolveHeaders(headers: any, range?: any): any {
+export function resolveHeaders(headers: Head[], range?: any): any {
     if (range === false) {
         return [];
     }
-    let minLevel = 3;
-    headers.map((header) => {
-        minLevel = Math.min(header.level, minLevel);
-    });
+    const minLevel = headers.reduce((min, header) => Math.min(header.level, min), 3);
     const levelsRange =
         (typeof range === "object" && !Array.isArray(range)
             ? range.level
@@ -118,7 +113,7 @@ export function resolveHeaders(headers: any, range?: any): any {
             ret.push(cur);
         } else {
             for (let j = i - 1; j >= 0; j--) {
-                const prev = headers[j];
+                const prev: Head = headers[j];
                 if (prev.level < cur.level) {
                     (prev.children || (prev.children = [])).push(cur);
                     continue outer;
