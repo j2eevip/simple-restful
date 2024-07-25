@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.ly</groupId>
-    <artifactId>spring-boot-starter-simple-restful</artifactId>
+    <artifactId>spring-boot-starter-simple-mvc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Simple Restful for your OpenAPI.</name>
     <description>Makes it easier to write RESTful interfaces</description>

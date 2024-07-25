@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.github.ly</groupId>
-    <artifactId>springboot-demo</artifactId>
+    <artifactId>spring-boot-mvc-example</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>springboot-demo</name>
     <description>springboot-demo</description>
@@ -41,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.ly</groupId>
-            <artifactId>spring-boot-starter-simple-restful</artifactId>
+            <artifactId>spring-boot-starter-simple-webflux</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
