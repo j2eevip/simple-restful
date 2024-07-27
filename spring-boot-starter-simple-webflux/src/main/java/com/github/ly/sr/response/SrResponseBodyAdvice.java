@@ -73,8 +73,10 @@ public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                                   ServerHttpRequest serverHttpRequest,
                                   ServerHttpResponse serverHttpResponse) {
         Method method = methodParameter.getMethod();
-        if (Objects.isNull(body) || (Objects.nonNull(method) && method.getReturnType().equals(Void.TYPE))) {
+        if ((Objects.nonNull(method) && method.getReturnType().equals(Void.TYPE)) || Objects.isNull(body)) {
             return SrResponseBody.success(properties.getSuccessCode());
+        } else if (body instanceof SrResponseBody) {
+            return body;
         } else if (body instanceof String) {
             return JSON.toJSONString(SrResponseBody.success(properties.getSuccessCode(), body));
         }

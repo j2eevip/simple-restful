@@ -1,0 +1,27 @@
+server:
+  servlet:
+    context-path: /
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  http2:
+    enabled: true
+
+springdoc:
+  swagger-ui:
+    path: /index.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+    enabled: true
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.github.ly.demo.controller
+
+simple-restful:
+  base-package: com.github.ly.demo
+  private-key: "VybmFtZSI6"
+  request-body-encryption: true
