@@ -73,17 +73,16 @@ public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                                   Class<? extends HttpMessageConverter<?>> clazz,
                                   ServerHttpRequest serverHttpRequest,
                                   ServerHttpResponse serverHttpResponse) {
+        if (properties.isPrintLog()) {
+            log.debug("非空返回值，执行封装:path={}", serverHttpRequest.getURI().getPath());
+        }
         Method method = methodParameter.getMethod();
         if (Objects.isNull(body) || (Objects.nonNull(method) && method.getReturnType().equals(Void.TYPE))) {
-            return SrResponseBody.success(properties.getSuccessCode());
+            return SrResponseBody.success();
         } else if (body instanceof String) {
-            return JSON.toJSONString(SrResponseBody.success(properties.getSuccessCode(), body));
+            return JSON.toJSONString(SrResponseBody.success(body));
         }
-        if (properties.isPrintLog()) {
-            String path = serverHttpRequest.getURI().getPath();
-            log.debug("非空返回值，执行封装:path={}", path);
-        }
-        return SrResponseBody.success(properties.getSuccessCode(), body);
+        return SrResponseBody.success(body);
     }
 
     private boolean supportsCustomMessageConvert(Class<? extends HttpMessageConverter<?>> clazz) {
