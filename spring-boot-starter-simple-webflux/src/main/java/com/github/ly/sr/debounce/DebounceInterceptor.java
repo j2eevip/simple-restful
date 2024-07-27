@@ -1,23 +1,24 @@
 package com.github.ly.sr.debounce;
 
-import com.github.ly.sr.exception.ExceptionUtil;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.github.ly.annotation.Debounce;
+import com.github.ly.cache.CacheSupport;
+import com.github.ly.tools.ExceptionUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.server.ServerWebExchange;
+import reactor.core.publisher.Mono;
 
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 @ConditionalOnBean(CacheSupport.class)
 @RequiredArgsConstructor
 public class DebounceInterceptor {
     private final CacheSupport cacheSupport;
 
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(ServerWebExchange exchange, Object handler) throws Exception {
         if ((handler instanceof HandlerMethod handlerMethod) && handlerMethod.hasMethodAnnotation(Debounce.class)) {
-            String cacheKey = cacheKey(request, handlerMethod.getMethod());
+            String cacheKey = cacheKey(exchange, handlerMethod.getMethod()).block();
             if (Boolean.TRUE.equals(cacheSupport.hasCacheKey(cacheKey))) {
                 ExceptionUtil.raiseException("bad request: duplicate submit, please wait some moments do it again.");
             }
@@ -29,16 +30,7 @@ public class DebounceInterceptor {
     }
 
 
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        String cacheKey = cacheKey(request, ((HandlerMethod) handler).getMethod());
-        cacheSupport.removeCacheKey(cacheKey);
-        if (Objects.nonNull(ex)) {
-            ExceptionUtil.raiseException(500, "request exception", ex);
-        }
-    }
-
-    private String cacheKey(HttpServletRequest request, Method method) {
-        String sessionId = request.getSession(false).getId();
-        return "debounce:" + method.getName() + ":" + sessionId;
+    private Mono<String> cacheKey(ServerWebExchange exchange, Method method) {
+        return exchange.getSession().map(s -> "debounce:" + method.getName() + ":" + s.getId());
     }
 }

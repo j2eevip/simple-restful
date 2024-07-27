@@ -47,7 +47,7 @@ public class SrExceptionAdvice {
         } else {
             message = exception.getMessage();
         }
-        return SrResponseBody.fail(code, message, exception.exceptionData());
+        return SrResponseBody.fail(code, message, exception.getErrorData());
     }
 
     @ExceptionHandler(value = {BindException.class, ValidationException.class, MethodArgumentNotValidException.class})

@@ -1,6 +1,7 @@
 package com.github.ly.sr;
 
-import com.github.ly.sr.encryption.method.EncryptMode;
+import com.github.ly.constant.SrConstant;
+import com.github.ly.enums.EncryptMode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

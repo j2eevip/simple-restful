@@ -1,6 +1,6 @@
 package com.github.ly.sr.encryption.global;
 
-import com.github.ly.sr.encryption.method.EncryptMode;
+import com.github.ly.enums.EncryptMode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;

@@ -1,8 +1,8 @@
 package com.github.ly.sr.response;
 
 import com.alibaba.fastjson2.JSON;
+import com.github.ly.annotation.IgnoreAdvice;
 import com.github.ly.sr.SrProperties;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
@@ -17,9 +17,6 @@ import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -59,8 +56,7 @@ public class SrResponseBodyAdvice {
 
         return supportsCustomMessageConvert(clazz)
                 && excludePackage(packageName)
-                && excludeReturnType(method.getReturnType())
-                && excludeUrls();
+                && excludeReturnType(method.getReturnType());
     }
 
     public Object beforeBodyWrite(Object body,
@@ -92,23 +88,6 @@ public class SrResponseBodyAdvice {
                 || AbstractJackson2HttpMessageConverter.class.isAssignableFrom(clazz))) {
             log.debug("自定义的JsonConvert和方法使用的convert不同，跳过方法");
             return false;
-        }
-        return true;
-    }
-
-    private boolean excludeUrls() {
-        Set<String> excludeUrls = properties.getExcludeUrls();
-        if (!CollectionUtils.isEmpty(excludeUrls)) {
-            RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-            String requestURI = request.getRequestURI();
-            for (String excludeUrl : excludeUrls) {
-                if (ANT_PATH_MATCHER.match(excludeUrl, requestURI)) {
-                    log.debug("匹配到excludeUrls例外配置，跳过:excludeUrl={},requestURI={}",
-                            excludeUrl, requestURI);
-                    return false;
-                }
-            }
         }
         return true;
     }

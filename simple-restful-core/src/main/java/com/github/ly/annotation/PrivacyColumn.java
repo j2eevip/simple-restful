@@ -1,7 +1,9 @@
-package com.github.ly.sr.privacy;
+package com.github.ly.annotation;
 
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.github.ly.enums.PrivacyTypeEnum;
+import com.github.ly.privacy.PrivacySerialize;
 
 import java.lang.annotation.*;
 

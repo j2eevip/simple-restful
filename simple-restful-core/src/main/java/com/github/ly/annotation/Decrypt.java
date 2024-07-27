@@ -9,7 +9,5 @@ import java.lang.annotation.*;
 @Target({ElementType.METHOD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Decrypt {
-    // 解密算法类型
     EncryptMode mode() default EncryptMode.BASE64;
-    // 算法的密钥
 }
