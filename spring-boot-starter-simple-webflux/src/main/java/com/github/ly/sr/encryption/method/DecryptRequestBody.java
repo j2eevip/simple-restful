@@ -10,7 +10,6 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,19 +21,17 @@ import java.util.Objects;
 @Slf4j
 @Order(0)
 @RestControllerAdvice
-public class DecryptRequestBody extends RequestBodyAdviceAdapter {
+public class DecryptRequestBody {
     private final String privateKey;
 
     public DecryptRequestBody(final SrProperties properties) {
         this.privateKey = properties.getPrivateKey();
     }
 
-    @Override
     public boolean supports(MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) {
         return parameter.hasParameterAnnotation(RequestBody.class) && parameter.hasParameterAnnotation(Decrypt.class);
     }
 
-    @Override
     public HttpInputMessage beforeBodyRead(HttpInputMessage inputMessage, MethodParameter parameter, Type targetType, Class<? extends HttpMessageConverter<?>> converterType) throws IOException {
         Decrypt decrypt = parameter.getParameterAnnotation(Decrypt.class);
         if (Objects.isNull(decrypt)) {

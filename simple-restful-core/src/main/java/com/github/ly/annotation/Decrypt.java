@@ -1,4 +1,6 @@
-package com.github.ly.sr.encryption.method;
+package com.github.ly.annotation;
+
+import com.github.ly.enums.EncryptMode;
 
 import java.lang.annotation.*;
 

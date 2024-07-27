@@ -1,4 +1,4 @@
-package com.github.ly.sr.privacy;
+package com.github.ly.tools;
 
 public class PrivacyUtil {
 

@@ -6,17 +6,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
 
 @ConditionalOnBean(CacheSupport.class)
 @RequiredArgsConstructor
-public class DebounceInterceptor implements HandlerInterceptor {
+public class DebounceInterceptor {
     private final CacheSupport cacheSupport;
 
-    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if ((handler instanceof HandlerMethod handlerMethod) && handlerMethod.hasMethodAnnotation(Debounce.class)) {
             String cacheKey = cacheKey(request, handlerMethod.getMethod());
@@ -31,7 +29,6 @@ public class DebounceInterceptor implements HandlerInterceptor {
     }
 
 
-    @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String cacheKey = cacheKey(request, ((HandlerMethod) handler).getMethod());
         cacheSupport.removeCacheKey(cacheKey);

@@ -1,6 +1,5 @@
-package com.github.ly.sr.encryption;
+package com.github.ly.tools;
 
-import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -166,7 +165,7 @@ public class RSAUtil {
     }
 
     public static RSAPublicKey getPublicKey(String publicKeyString) {
-        if (StringUtils.isBlank(publicKeyString)) {
+        if (StringUtil.isBlank(publicKeyString)) {
             return null;
         }
         try {
@@ -197,7 +196,7 @@ public class RSAUtil {
     }
 
     public static RSAPrivateKey getPrivateKey(String privateKeyString) {
-        if (StringUtils.isBlank(privateKeyString)) {
+        if (StringUtil.isBlank(privateKeyString)) {
             return null;
         }
         try {

@@ -2,8 +2,8 @@ package com.github.ly.sr.encryption.global;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.github.ly.sr.SrConstant;
-import com.github.ly.sr.encryption.method.EncryptMode;
+import com.github.ly.constant.SrConstant;
+import com.github.ly.enums.EncryptMode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletRequestWrapper;
 

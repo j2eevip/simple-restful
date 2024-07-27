@@ -1,9 +1,9 @@
-package com.github.ly.sr.exception;
+package com.github.ly.exception;
 
 import lombok.Getter;
 
 @Getter
-public class BizException extends BaseResponseException {
+public class BizException extends BaseException {
     private final int errorCode;
 
     public BizException(int errorCode, String message) {

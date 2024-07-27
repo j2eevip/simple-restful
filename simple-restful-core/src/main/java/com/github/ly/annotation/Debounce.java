@@ -1,4 +1,4 @@
-package com.github.ly.sr.debounce;
+package com.github.ly.annotation;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;

@@ -1,7 +1,6 @@
-package com.github.ly.sr.exception;
+package com.github.ly.annotation;
 
-
-import com.github.ly.sr.SrConstant;
+import com.github.ly.constant.SrConstant;
 
 import java.lang.annotation.*;
 
@@ -12,5 +11,6 @@ public @interface ResponseException {
     int code() default SrConstant.DEFAULT_FAIL_CODE;
 
     String msg() default SrConstant.DEFAULT_FAIL_MSG;
+
     boolean isSpEl() default false;
 }

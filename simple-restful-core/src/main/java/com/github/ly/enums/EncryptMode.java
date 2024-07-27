@@ -1,7 +1,7 @@
-package com.github.ly.sr.encryption.method;
+package com.github.ly.enums;
 
-import com.github.ly.sr.encryption.EncryptionUtil;
-import com.github.ly.sr.encryption.RSAUtil;
+import com.github.ly.tools.EncryptionUtil;
+import com.github.ly.tools.RSAUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.security.interfaces.RSAPrivateKey;

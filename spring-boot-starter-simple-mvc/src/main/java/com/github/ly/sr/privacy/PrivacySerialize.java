@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
+import com.github.ly.enums.PrivacyTypeEnum;
+import com.github.ly.tools.PrivacyUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;

@@ -41,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>com.github.ly</groupId>
-            <artifactId>spring-boot-starter-simple-webflux</artifactId>
+            <artifactId>spring-boot-starter-simple-mvc</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>

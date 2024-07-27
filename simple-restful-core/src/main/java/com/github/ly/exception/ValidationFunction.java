@@ -1,4 +1,4 @@
-package com.github.ly.sr.exception;
+package com.github.ly.exception;
 
 @FunctionalInterface
 public interface ValidationFunction {

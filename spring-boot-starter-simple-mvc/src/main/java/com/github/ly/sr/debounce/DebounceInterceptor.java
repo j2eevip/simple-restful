@@ -1,6 +1,7 @@
 package com.github.ly.sr.debounce;
 
-import com.github.ly.sr.exception.ExceptionUtil;
+import com.github.ly.annotation.Debounce;
+import com.github.ly.tools.ExceptionUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

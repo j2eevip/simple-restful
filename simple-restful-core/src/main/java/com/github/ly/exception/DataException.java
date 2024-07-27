@@ -1,9 +1,9 @@
-package com.github.ly.sr.exception;
+package com.github.ly.exception;
 
 import lombok.Getter;
 
 @Getter
-public class DataException extends BaseResponseException {
+public class DataException extends BaseException {
     private final int errorCode;
     private final Object exceptionData;
 

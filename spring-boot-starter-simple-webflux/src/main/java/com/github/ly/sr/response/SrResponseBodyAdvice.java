@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import java.lang.reflect.Method;
 import java.util.Objects;
@@ -29,7 +28,7 @@ import java.util.Set;
 @Slf4j
 @RestControllerAdvice
 @Order(value = Integer.MAX_VALUE - 1)
-public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
+public class SrResponseBodyAdvice {
     private static final AntPathMatcher ANT_PATH_MATCHER = new AntPathMatcher();
 
     private final SrProperties properties;
@@ -42,7 +41,6 @@ public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
     }
 
-    @Override
     public boolean supports(MethodParameter methodParameter,
                             Class<? extends HttpMessageConverter<?>> clazz) {
         Method method = methodParameter.getMethod();
@@ -65,7 +63,6 @@ public class SrResponseBodyAdvice implements ResponseBodyAdvice<Object> {
                 && excludeUrls();
     }
 
-    @Override
     public Object beforeBodyWrite(Object body,
                                   MethodParameter methodParameter,
                                   MediaType mediaType,

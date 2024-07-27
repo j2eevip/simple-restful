@@ -1,5 +1,6 @@
 package com.github.ly.sr.exception;
 
+import com.github.ly.exception.BaseException;
 import com.github.ly.sr.SrProperties;
 import com.github.ly.sr.response.SrResponseBody;
 import jakarta.annotation.Resource;
@@ -34,8 +35,8 @@ public class SrExceptionAdvice {
     @Resource
     private MessageSource messageSource;
 
-    @ExceptionHandler(BaseResponseException.class)
-    public SrResponseBody baseResponseExceptionHandler(BaseResponseException exception) {
+    @ExceptionHandler(BaseException.class)
+    public SrResponseBody baseResponseExceptionHandler(BaseException exception) {
         if (properties.isPrintLog()) {
             log.error("==================================>\n", exception);
         }

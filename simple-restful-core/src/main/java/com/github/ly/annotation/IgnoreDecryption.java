@@ -1,4 +1,4 @@
-package com.github.ly.sr.encryption.method;
+package com.github.ly.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

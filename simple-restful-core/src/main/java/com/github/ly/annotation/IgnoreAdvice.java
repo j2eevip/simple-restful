@@ -1,4 +1,4 @@
-package com.github.ly.sr.response;
+package com.github.ly.annotation;
 
 import java.lang.annotation.*;
 

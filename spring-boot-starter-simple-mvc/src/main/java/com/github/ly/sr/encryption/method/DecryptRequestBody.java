@@ -1,5 +1,6 @@
 package com.github.ly.sr.encryption.method;
 
+import com.github.ly.annotation.Decrypt;
 import com.github.ly.sr.SrProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;

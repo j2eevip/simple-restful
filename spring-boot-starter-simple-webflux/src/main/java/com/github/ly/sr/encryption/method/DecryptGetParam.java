@@ -9,13 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
-import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
-public class DecryptGetParam implements HandlerInterceptor {
+public class DecryptGetParam {
 
     private final String privateKey;
 
@@ -23,7 +22,6 @@ public class DecryptGetParam implements HandlerInterceptor {
         this.privateKey = privateKey;
     }
 
-    @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String decryptBody;
 

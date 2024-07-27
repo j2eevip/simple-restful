@@ -1,6 +1,6 @@
 package com.github.ly.sr.encryption.global;
 
-import com.github.ly.sr.encryption.method.EncryptMode;
+import com.github.ly.enums.EncryptMode;
 import io.micrometer.common.util.StringUtils;
 import jakarta.servlet.ReadListener;
 import jakarta.servlet.ServletInputStream;
