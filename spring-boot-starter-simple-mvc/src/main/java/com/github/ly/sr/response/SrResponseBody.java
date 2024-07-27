@@ -26,16 +26,16 @@ public final class SrResponseBody {
         return fail(SrConstant.DEFAULT_FAIL_CODE, message, null);
     }
 
-    public static SrResponseBody fail(int code, String message) {
-        return fail(code, message, null);
+    public static SrResponseBody fail(int errorCode, String message) {
+        return fail(errorCode, message, null);
     }
 
-    public static SrResponseBody fail(int code, String message, Object data) {
-        return new SrResponseBody(code, message, data);
+    public static SrResponseBody fail(int errorCode, String message, Object data) {
+        return new SrResponseBody(errorCode, message, data);
     }
 
-    private SrResponseBody(final int code, final String msg, final Object data) {
-        this.code = code;
+    private SrResponseBody(final Integer errorCode, final String msg, final Object data) {
+        this.code = errorCode;
         this.msg = msg;
         this.data = data;
     }
@@ -43,4 +43,8 @@ public final class SrResponseBody {
     private final Integer code;
     private final String msg;
     private final Object data;
+
+    public boolean isSuccess() {
+        return code == SrConstant.DEFAULT_SUCCESS_CODE;
+    }
 }
