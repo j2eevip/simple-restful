@@ -7,6 +7,9 @@
   "type": "module",
   "devDependencies": {
     "@shikijs/vitepress-twoslash": "^1.10.3",
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "20.14.11",
+    "@vue/reactivity": "^3.4.37",
     "dayjs": "^1.11.10",
     "fast-glob": "^3.3.2",
     "feed": "^4.2.2",
@@ -24,8 +27,6 @@
     "serve": "vitepress serve "
   },
   "dependencies": {
-    "@types/node": "^20.14.11",
-    "gitalk": "^1.8.0",
-    "vue": "^3.4.33"
+    "vue": "^3.4.37"
   }
 }

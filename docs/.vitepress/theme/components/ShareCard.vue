@@ -1,10 +1,10 @@
 <template>
   <div class="shareCard">
     <h1 class="title">
-      <span>Hi, I'm Clark Cui 👋</span>
+      <span>Simple Restful使用文档</span>
     </h1>
     <p class="description">
-      A frontend developer(he/him) who is building in web3.
+      文档回以日期迭代的方式进行更新.
     </p>
   </div>
 </template>

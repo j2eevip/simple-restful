@@ -1,5 +1,4 @@
 <template>
-  <h1 class="blog-title">Blogs</h1>
   <div class="blogList">
     <a class="blog" v-for="item in posts" :href="withBase(item.regularPath)">
       <div class="title">{{ item.frontMatter.title }}</div>
@@ -23,23 +22,20 @@
 <script lang="ts" setup>
 import {ref} from "vue";
 import {useData, withBase} from "vitepress";
-
-interface post {
-  regularPath: string;
-  frontMatter: object;
-}
+import {Post} from "../../env";
+import {Ref} from "@vue/reactivity";
 
 const {theme} = useData();
 
 // get posts
-let postsAll = theme.value.posts || [];
+let postsAll: Array<Post> = theme.value.posts || [];
 // get postLength
-let postLength = theme.value.postLength;
+let postLength: number = theme.value.postLength;
 // get pageSize
-let pageSize = theme.value.pageSize;
+let pageSize: number = theme.value.pageSize;
 
 //  pagesNum
-let pagesNum =
+let pagesNum: number =
     postLength % pageSize === 0
         ? postLength / pageSize
         : postLength / pageSize + 1;
@@ -47,11 +43,11 @@ pagesNum = parseInt(pagesNum.toString());
 //pageCurrent
 let pageCurrent = ref(1);
 // filter index post
-postsAll = postsAll.filter((item: post) => {
+postsAll = postsAll.filter((item: Post) => {
   return item.regularPath.indexOf("index") < 0;
 });
 // pagination
-let allMap = {};
+let allMap = [];
 for (let i = 0; i < pagesNum; i++) {
   allMap[i] = [];
 }
@@ -60,14 +56,14 @@ for (let i = 0; i < postsAll.length; i++) {
   if (allMap[index].length > pageSize - 1) {
     index += 1;
   }
-  allMap[index].push(postsAll[i]);
+  allMap[index] = [postsAll[i]];
 }
 // set posts
-let posts = ref([]);
+let posts: Ref<Array<Post>> = ref([]);
 posts.value = allMap[pageCurrent.value - 1];
 
 // click pagination
-const go = (i) => {
+const go = (i: number) => {
   pageCurrent.value = i;
   posts.value = allMap[pageCurrent.value - 1];
 };
@@ -131,13 +127,6 @@ const transDate = (date: string) => {
 </script>
 
 <style scoped>
-.blog-title {
-  text-align: center;
-  font-weight: bold;
-  font-size: 2rem;
-  margin-top: 24px;
-}
-
 .blogList {
   padding: 30px 0;
   padding-bottom: 30px;

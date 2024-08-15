@@ -1,6 +1,6 @@
 <template>
   <h1 class="title">{{ pageData.title }}</h1>
-  <div class="date">🕒 Published at: {{ publishDate }}</div>
+  <div class="date">🕒发布日期: {{ publishDate }}</div>
 </template>
 <script lang="ts" setup>
 import {onContentUpdated, PageData, useData} from "vitepress";

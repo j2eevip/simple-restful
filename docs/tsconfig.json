@@ -3,7 +3,8 @@
     ".vitepress/theme/**/*.ts",
     ".vitepress/theme/**/*.d.ts",
     ".vitepress/theme/**/*.tsx",
-    ".vitepress/theme/**/*.vue"
+    ".vitepress/theme/**/*.vue",
+    ".vitepress/env.d.ts"
   ],
   "exclude": [
     "node_modules",

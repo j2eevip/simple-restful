@@ -1,12 +1,12 @@
 ---
-title: 2022 Annual Summary
-description: 2022 Annual Summary
-date: 2023-04-19
+title: 统一返回
+description: springmvc web方式进行统一返回配置
+date: 2024-08-01
 tags:
-  - English
+  - mvc
 ---
 
-### Why write the annual summary at this time?
+### 项目介绍
 
 The company's fiscal year is based on March of each year. At present, most of my energy is devoted to work, so the
 company's year is just like my year.

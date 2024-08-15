@@ -2,14 +2,11 @@
   <footer>
     Powered by
     <a href="https://github.com/clark-cui/" target="_blank" title="作者"
-    >clark-cui</a
+    >Lucifer Yuan</a
     >
-    | Copyright © 2019-{{ date }} | MIT License
+    | Copyright © 2024~ | MIT License
   </footer>
 </template>
-<script lang="ts" setup>
-const date = new Date().getFullYear();
-</script>
 <style scoped>
 footer {
   text-align: center;

@@ -1,10 +1,11 @@
 import {globby} from 'globby';
 import fs from "fs-extra";
 import matter from "gray-matter";
+import {Post} from "../env";
 
-export async function getPosts() {
-    let paths = await getPostMDFilePaths();
-    let posts = await Promise.all(
+export async function getPosts(): Promise<Array<Post>> {
+    const paths = await getPostMDFilePaths();
+    const posts: Array<Post> = await Promise.all(
         paths.map(async (item) => {
             const content = await fs.readFile(item, "utf-8");
             const {data} = matter(content);
@@ -15,8 +16,7 @@ export async function getPosts() {
             };
         })
     );
-    posts.sort(_compareDate);
-    return posts;
+    return posts.sort(_compareDate);
 }
 
 function _convertDate(date = new Date().toString()) {
@@ -24,7 +24,7 @@ function _convertDate(date = new Date().toString()) {
     return json_date.split("T")[0];
 }
 
-function _compareDate(obj1, obj2) {
+function _compareDate(obj1: Post, obj2: Post) {
     return obj1.frontMatter.date < obj2.frontMatter.date ? 1 : -1;
 }
 
