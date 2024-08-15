@@ -6,7 +6,15 @@ import com.github.ly.demo.model.vo.ReqUser;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("demo")
@@ -15,26 +23,32 @@ public class DemoController {
 
     @GetMapping("hello")
     @Operation(summary = "hello")
-    public String hello() {
-        return "hello world";
+	public Mono<String> hello() {
+		return Mono.just("hello world");
     }
 
     @GetMapping("privacy")
     @Operation(summary = "privacy")
-    public User privacy() {
-        return User.of("Halo.Chen");
+	public Mono<User> privacy() {
+		return Mono.just(User.of("Halo.Chen"));
     }
 
     @PostMapping("decrypt/post")
     @Operation(summary = "post-decrypt")
-    public String decryptPost(@RequestBody ReqUser user) {
-        return "hello " + user.getUsername();
+	public Mono<String> decryptPost(@RequestBody ReqUser user) {
+		return Mono.just("hello " + user.getUsername());
     }
 
     @GetMapping("decrypt/get")
     @Operation(summary = "get-decrypt")
     @Parameter(name = SrConstant.DECRYPT_PARAM_NAME, example = "JCNFRDI1RkNBRER7InRlc3QiOiJ6aGFuZyBzYW4ifQ==")
-    public String decryptGet(@RequestAttribute("test") String test) {
-        return "hello " + test;
+	public Mono<String> decryptGet(@RequestAttribute("test") String test) {
+		return Mono.just("hello " + test);
+	}
+
+	@GetMapping("list")
+	@Operation(summary = "list")
+	public Flux<String> list() {
+		return Flux.just("hello", "world");
     }
 }

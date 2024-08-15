@@ -1,4 +1,4 @@
-package com.github.ly.sr.response;
+package com.github.ly.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.github.ly.constant.SrConstant;
@@ -22,15 +22,15 @@ public final class SrResponseBody {
         return new SrResponseBody(SrConstant.DEFAULT_SUCCESS_CODE, message, data);
     }
 
-    public static SrResponseBody fail(String message) {
-        return fail(SrConstant.DEFAULT_FAIL_CODE, message, null);
+    public static SrResponseBody failed(String message) {
+        return failed(SrConstant.DEFAULT_FAIL_CODE, message, null);
     }
 
-    public static SrResponseBody fail(int errorCode, String message) {
-        return fail(errorCode, message, null);
+    public static SrResponseBody failed(int errorCode, String message) {
+        return failed(errorCode, message, null);
     }
 
-    public static SrResponseBody fail(int errorCode, String message, Object data) {
+    public static SrResponseBody failed(int errorCode, String message, Object data) {
         return new SrResponseBody(errorCode, message, data);
     }
 
